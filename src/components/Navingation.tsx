@@ -10,6 +10,7 @@ import {
   } from '../feature/mySlice';
 import { SortMethod } from '../models/AppStateModels';
 import { useAppDispatch, useAppSelector } from '../hooks/appHooks';
+import { debounce } from '../util';
 
 interface NavigationProps {
   isEnhanced: boolean;
@@ -23,6 +24,8 @@ export function Navigation({ isEnhanced }: NavigationProps) {
   const updateSearch = function(searchPatter: string) {
     dispatch(searchString(searchPatter));
   };
+    
+  const betterSearch = debounce(updateSearch, 1000);
 
   const goBack = () => {
     dispatch(prevPage());
@@ -49,7 +52,7 @@ export function Navigation({ isEnhanced }: NavigationProps) {
       <div>
         <label>Search in Pokemons</label>
         <input placeholder="Search pokemon by name or ability" 
-        className="card__input" type="text" onChange={(e) => updateSearch(e.target.value)} name="search pokemon" />
+        className="card__input" type="text" onChange={(e) => betterSearch(e.target.value)} name="search pokemon" />
       </div>
       <div>
         <label>Items</label>
