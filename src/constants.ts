@@ -1,0 +1,1 @@
+export const url_pokemons = 'https://pokeapi.co/api/v2/pokemon?limit=200&offset=0';
